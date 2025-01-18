@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","4623","Open YouTube homepage and handle pop-ups","","Fri Jan 17 15:23:25 IST 2025","passed","Fri Jan 17 15:23:30 IST 2025","","YouTube Application Testing","",""
+"","7022","Search for a video with dynamic query handling","","Fri Jan 17 15:23:30 IST 2025","passed","Fri Jan 17 15:23:37 IST 2025","","YouTube Application Testing","",""
+"","28734","Click on a video from the search results","","Fri Jan 17 15:23:37 IST 2025","passed","Fri Jan 17 15:24:06 IST 2025","","YouTube Application Testing","",""

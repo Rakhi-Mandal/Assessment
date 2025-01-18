@@ -1,0 +1,7 @@
+
+Booking Application Logs: Fri,Jan 17
+Total suggested pre-count of hotels from UI: Visakhapatnam: 220 properties found
+
+Total suggested post-count: Visakhapatnam: 13 properties found
+
+Selected hotel: Dolphin Hotel
