@@ -11,6 +11,7 @@ const { defineConfig, devices } = require('@playwright/test');
  * @see https://playwright.dev/docs/test-configuration
  */
 module.exports = defineConfig({
+ 
   testDir: './tests',
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -34,6 +35,7 @@ module.exports = defineConfig({
     screenshot :'only-on-failure',
     video:'retain-on-failure',
   },
+  
 
   /* Configure projects for major browsers */
   projects: [

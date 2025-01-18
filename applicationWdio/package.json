@@ -9,6 +9,7 @@
     "launchYoutube": "npx wdio run wdio.conf.js --spec ./features/youtube.feature",
     "launchTestim": "wdio run wdio.conf.js --spec ./features/testim.feature",
     "launchTarget": "wdio run wdio.conf.js --spec ./features/target.feature",
+    "launchAll":"npx wdio wdio.conf.js --suite launchAll",
     "allure:generate": "allure generate allure-results --clean -o allure-report",
     "allure:serve": "allure serve allure-results",
     "allure:reports": "npm run allure:generate && npm run allure:serve"

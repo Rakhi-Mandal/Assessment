@@ -273,7 +273,17 @@ exports.config = {
             const allure = require('@wdio/allure-reporter').default;
             allure.addAttachment('Screenshot on Failure', Buffer.from(screenshot, 'base64'), 'image/png');
         }
-    }
+    },
+
+    suites: {
+        launchAll: [
+             './features/target.feature',
+             './features/booking.feature',
+             './features/testim.feature',
+             'features/youtube.feature'
+          
+        ]
+    },
     /**
      *
      * Runs after a Cucumber Scenario.
@@ -326,7 +336,9 @@ exports.config = {
      * thrown in the onComplete hook will result in the test run failing.
      * @param {object} exitCode 0 - success, 1 - fail
      * @param {object} config wdio configuration object
-     * @param {Array.<Object>} capabilities list of capabilities details
+     * @param {Array.<Ob
+      
+        ject>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
     // onComplete: function(exitCode, config, capabilities, results) {

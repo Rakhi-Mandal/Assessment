@@ -50,9 +50,6 @@ async function assertAllureStep(stepName,stepTask) {
 
 
 module.exports = {
-  // getCurrentDate,
-  // updateTheDate,
-  // getCheckoutDate,
   logToFile,
   getParsedPrice,
   calculateDiscountPercentage,

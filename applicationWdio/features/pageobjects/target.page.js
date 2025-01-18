@@ -45,7 +45,7 @@ class BookingPage {
     const url = await browser.getUrl();
     expect(title).to.be.equal(process.env.targetPageTitle);
     expect(url).to.be.equal(process.env.targetBaseURL);
-    helper.logToFile(`Target Application Logs:${helper.getCurrentDate()}`)
+    helper.logToFile(`Target Application Logs:${helper.getCheckInDates()}`)
     expect(await this.logo.isDisplayed()).to.be.true;
 
   }

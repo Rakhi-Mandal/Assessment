@@ -56,6 +56,7 @@ class TestimPage {
 
   async validateTheHeaderOptions() {
     expect(await this.pageLogo.isDisplayed()).to.be.true;
+    await browser.pause(parseInt(process.env.smallTimeOut));
     const navOptions = await this.navigationElements;
     let visibleCount = 0;
     for (const option of navOptions) {
@@ -75,6 +76,7 @@ class TestimPage {
         for (const option of data.subSectionTexts) {
           const subSectionElements = await this.subSection(option); 
           for (const subSectionElement of subSectionElements) {
+    await browser.pause(parseInt(process.env.smallTimeOut))
             expect(await subSectionElement.isDisplayed()).to.be.true;
           }
         }
@@ -88,6 +90,8 @@ class TestimPage {
       await $(subSectionElementSelector).click()
            }
          }
+    await browser.pause(parseInt(process.env.smallTimeOut));
+         
         expect(await browser.getUrl()).to.be.equal(process.env.testimCustomerUrl);
         expect(await this.customerName.getText()).to.equal(data.customerSubSection.name, 'Validate the customer name in the review section');
         const reviewName= data.customerSubSection.name;
