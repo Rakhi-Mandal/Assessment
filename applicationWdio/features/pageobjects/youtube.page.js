@@ -53,6 +53,8 @@ class YoutubePage  {
     async navigation() {
     await helper.assertAllureStep('Navigating to the application home page', async () => { 
       await browser.url(process.env.youtubeBaseURL);
+    helper.logToFile(`Testim Application Logs:${helper.getCheckInDates()}`)
+
     });
     }
     async checkHomepage() {
@@ -74,6 +76,8 @@ class YoutubePage  {
     async searchForVideo() {
     await helper.assertAllureStep('Setting a query and searching for results', async () => { 
       await this.searchBar.setValue(data.searchQuery);
+    helper.logToFile(`Searched query:${data.searchQuery}`)
+
       await this.iconSearch.click();
     });
     }
@@ -83,6 +87,8 @@ class YoutubePage  {
       
       const count = await this.countSuggestedVideos.length;
       expect(count).to.be.greaterThanOrEqual(10);
+    helper.logToFile(`Number of suggested videos obtained :${count}`)
+
     });
     }
 
@@ -90,7 +96,7 @@ class YoutubePage  {
     {
     await helper.assertAllureStep('Waiting till the video is visible,clickable and then click', async () => { 
       await this.clickAVideo.waitForDisplayed();
-      await browser.pause(process.env.longTimeOut)
+      await browser.pause(process.env.mediumTimeOut)
       await this.clickAVideo.waitForClickable();
 	    await this.clickAVideo.click();
       await browser.pause(process.env.smallTimeOut)
@@ -102,36 +108,25 @@ class YoutubePage  {
 
     async handleVideoPopups() {
       await helper.assertAllureStep('Waiting till skip add button is visible,clickable and then click', async () => { 
-    
       await this.skipAd.waitForDisplayed();
-      const skipAdVisible = await this.skipAd.isDisplayed();
-      if (skipAdVisible){
-        await this.skipAd.click();
-      } 
+      const Advertisement = await this.sponsored.isDisplayed();
+      if(Advertisement){
+        const skipAdVisible = await this.skipAd.isDisplayed();
+        if (skipAdVisible){
+          await this.skipAd.click();
+         helper.logToFile('Advertisements handled successfully')
+  
+        } 
+      }
+      
     });
     }
     async verifyVideoLoading() {
     await helper.assertAllureStep('Wait for the video to load and verify it is playin', async () => { 
-
       const isVisible = await this.sponsored.isDisplayed();
       assert.isFalse(isVisible, "Adds are no more visible and video is playing");
     });
     }
-  
-    // async verifyPlayPauseButton() {
-    //   const isVisible = await this.playPauseButton.isDisplayed();
-    //   expect(isVisible).to.be.true;
-    // }
-  
-    // async verifyVideoProgress() {
-    //   const isVisible = await this.videoProgressBar.isDisplayed();
-    //   expect(isVisible).to.be.true;
-    // }
-  
-      async getNavOptions() {
-    const headerOptions = this.navigationElements.elementHandles();
-    return await headerOptions;
-  }
    
   
     async verifyVideoPauseResume() {

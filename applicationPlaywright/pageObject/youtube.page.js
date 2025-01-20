@@ -16,6 +16,7 @@ export class YoutubePage {
     );
     this.countSuggestedVideos = page.locator("//h3[contains(@class,'title')]");
     this.clickAVideo = page.locator("(//h3[contains(@class,'title')])[1]");
+    this.sponsored = page.locator("//div[contains(@class,'ad-info')]//div[text()='Sponsored']");
     this.skipAd = page.locator("//button[contains(@id,'skip')]");
     this.playPauseButton = page.locator(
       "//button[contains(@class,'ytp-play-button')]"
@@ -67,9 +68,12 @@ export class YoutubePage {
     await this.page.waitForTimeout(parseInt(process.env.mediumTimeOut));
     await this.page.waitForSelector("//button[contains(@id,'skip')]");
     await helper.assertAllureStep('Asserting skip add video visibility then click', async () => {
-
-    const skipVisible = await this.skipAd.isVisible();
+    const advertisement = await this.sponsored.isVisible();
+    if(advertisement)
+    {
+      const skipVisible = await this.skipAd.isVisible();
     if (skipVisible) await this.skipAd.click();
+    }   
     });
   });
   }

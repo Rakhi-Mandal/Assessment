@@ -161,7 +161,10 @@ exports.BookingPage = class BookingPage {
       ]);
       await this.page.waitForTimeout(parseInt(process.env.smallTimeOut));
       const newHotelName = await newTab.locator("//h2[contains(@class,'header__title')]").textContent();
+    await helper.assertAllureStep('Verify Selected Hotel is correct', async () => {
+     
       expect(hotelName).toEqual(newHotelName);  
+    });
       helper.logToFile(`\nSelected hotel: ${hotelName}`);
     });
   }

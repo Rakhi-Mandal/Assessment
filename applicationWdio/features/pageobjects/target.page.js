@@ -37,38 +37,61 @@ class BookingPage {
     );
   }
   async navigation() {
+    await helper.assertAllureStep('Navigate to Target Application', async () => {
     await browser.url(process.env.targetBaseURL);
+    helper.logToFile(`Target Application Logs:${helper.getCheckInDates()}`)
+    });
   }
 
   async checkHomepage() {
     const title = await browser.getTitle();
     const url = await browser.getUrl();
+    await helper.assertAllureStep('Check page title', async () => {
     expect(title).to.be.equal(process.env.targetPageTitle);
+    });
+    await helper.assertAllureStep('Check page url', async () => {
     expect(url).to.be.equal(process.env.targetBaseURL);
-    helper.logToFile(`Target Application Logs:${helper.getCheckInDates()}`)
+    });
+    await helper.assertAllureStep('Check page logo visibility', async () => {
     expect(await this.logo.isDisplayed()).to.be.true;
-
+    });
   }
 
 
   async searchForAnItem(){
+    await helper.assertAllureStep('Check search bar visibility and enability', async () => {
+
     expect(await this.searchBar.isDisplayed()).to.be.true;
     expect(await this.searchBar.isEnabled()).to.be.true;
+    });
+    await helper.assertAllureStep('Search for an item', async () => {
     await this.searchBar.setValue(data.itemName);
+    });
+    await helper.assertAllureStep('Check search button visibility and then click', async () => {
+      expect(await this.searchBar.isDisplayed()).to.be.true;
     await this.searchButton.click()
+    });
 
   }
   async validateTheResults(){
     await browser.pause(process.env.smallTimeOut)
+    await helper.assertAllureStep('Validate current title of page', async () => {
+
     const currentTitle = await browser.getTitle();
-    expect(currentTitle).to.be.equal(process.env.watchPageTitle);;
+    expect(currentTitle).to.be.equal(process.env.watchPageTitle);
+    });
+    await helper.assertAllureStep('Fetching and validating the results obtained', async () => {
+
     const firstItemText = await this.firstItem.getText();
     expect(firstItemText.toLowerCase()).contains(data.itemName);
     helper.logToFile(`First item in result: ${((await this.firstItem.getText()).toLowerCase())}`);
+    });
   }
 
   async selectAProductWithDiscount()
-  {
+    {
+  await helper.assertAllureStep('Fetching a product with discount', async () => {
+
     for (const option of data.discounted) {
       const discountedLocator = this.discountedItem(option);
     expect(await discountedLocator.isDisplayed()).to.be.true;
@@ -77,29 +100,31 @@ class BookingPage {
         break;
  
       }
+    });
     }
 
      async validatePercentageDiscounts(){
+     await helper.assertAllureStep('Validate customer discount percentage offers', async () => {
       const original = await helper.getParsedPrice(this.originalPrice);  
       const inOffer = await helper.getParsedPrice(this.discountedPrice); 
       const calculatedDiscountPercentage =await helper.calculateDiscountPercentage(original.price,inOffer.price)
-    //   const calculatedDiscountPrice =await helper.calculateDiscountPrice(original.price,inOffer.price)
       const result = await helper.getParsedPrice(this.customerSavings); 
     //   expect(calculatedDiscountPrice).toBeCloseTo(result.price,0.05);
       expect(calculatedDiscountPercentage).to.be.equal(result.discount)
+    });
     } 
 
     async validatePriceDiscounts(){
+     await helper.assertAllureStep('Validate customer discount price offers', async () => {
+
       const original = await helper.getParsedPrice(this.originalPrice);  
       const inOffer = await helper.getParsedPrice(this.discountedPrice); 
       const calculatedDiscountPrice =await helper.calculateDiscountPrice(original.price,inOffer.price)
-    expect(await customerSavings.isDisplayed()).to.be.true;
-      
+      expect(await customerSavings.isDisplayed()).to.be.true; 
       const result = await helper.getParsedPrice(this.customerSavings); 
       expect(calculatedDiscountPrice).toBeCloseTo(result.price,0.05);
+     });
     } 
- 
-
 }
 
 module.exports = new BookingPage();
