@@ -1,26 +1,43 @@
 const { allure } = require('allure-playwright');
 const fs = require('fs');
 let isFileCleaned = false;
-function getCurrentDate() {
+// function getCurrentDate() {
+//   const today = new Date();
+//   const dayOfWeek = today.toLocaleString("default", { weekday: "short" });
+//   const date = today.getDate().toString();
+//   const month = today.toLocaleString("default", { month: "short" });
+//   const formattedDate = `${dayOfWeek},${month} ${date}`;
+//   return formattedDate;
+// }
+// function getCheckoutDate() {
+//   const today = new Date();
+//   const dayOfWeek = today.toLocaleString("default", { weekday: "short" });
+//   const date = today.getDate().toString();
+//   const month = today.toLocaleString("default", { month: "short" });
+//   const formattedDate = `${dayOfWeek},${month} ${date+7}`;
+//   return formattedDate;
+// }
+// async function updateTheDate(locator, formattedDate) {
+//   await locator.evaluate((element, date) => {
+//     element.textContent = date;
+//   }, formattedDate);
+// }
+
+function getCheckInDates() {
   const today = new Date();
-  const dayOfWeek = today.toLocaleString("default", { weekday: "short" });
   const date = today.getDate().toString();
-  const month = today.toLocaleString("default", { month: "short" });
-  const formattedDate = `${dayOfWeek},${month} ${date}`;
+  const year = today.getFullYear().toString();
+  const month = today.toLocaleString("default", { month: "long" });
+  const formattedDate = `${date} ${month} ${year}`;
   return formattedDate;
 }
-function getCheckoutDate() {
+function getCheckOutDates() {
   const today = new Date();
-  const dayOfWeek = today.toLocaleString("default", { weekday: "short" });
   const date = today.getDate().toString();
-  const month = today.toLocaleString("default", { month: "short" });
-  const formattedDate = `${dayOfWeek},${month} ${date+7}`;
+  const year = today.getFullYear().toString();
+  const month = today.toLocaleString("default", { month: "long" });
+  const formattedDate = `${date} ${month} ${year}`;
   return formattedDate;
-}
-async function updateTheDate(locator, formattedDate) {
-  await locator.evaluate((element, date) => {
-    element.textContent = date;
-  }, formattedDate);
 }
  function logToFile(message) {
   const logFilePath = 'output/testLogs.txt';
@@ -55,9 +72,11 @@ async function assertAllureStep(stepName,stepTask) {
 }
 
 module.exports = {
-  getCurrentDate,
-  updateTheDate,
-  getCheckoutDate,
+  // getCurrentDate,
+  // updateTheDate,
+  // getCheckoutDate,
+  getCheckInDates,
+  getCheckOutDates,
   logToFile,
   getParsedPrice,
   calculateDiscountPercentage,

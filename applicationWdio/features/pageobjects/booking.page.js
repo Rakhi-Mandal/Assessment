@@ -1,8 +1,7 @@
 const { $, browser } = require("@wdio/globals");
 const data = require("../../data/bookingData.json");
-const { expect, assert } = require("chai");
+const { expect } = require("chai");
 const helper = require("../../utils/helper");
-const fs = require('fs');
 
 class BookingPage {
   constructor() {}
@@ -65,9 +64,6 @@ class BookingPage {
  get selectTheHotel(){
     return $("(//div[@data-testid='title'])[1]")
  } 
- get selectedHotel(){
-    return $("div[data-testid='title']:first-of-type")
- }
   async navigation() {
     await helper.assertAllureStep('Navigate to Booking Website', async () => {
 

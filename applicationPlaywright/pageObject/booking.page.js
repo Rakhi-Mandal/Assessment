@@ -20,6 +20,7 @@ exports.BookingPage = class BookingPage {
     this.checkIn = page.locator(
       "(//table//child::tbody//child::tr//child::td[@role='gridcell'])[2]"
     );
+    this.bookingDates = (date) => page.locator(`//span[@aria-label='${date}']`);
     this.checkOut = page.locator(
       "(//table//child::tbody//child::tr//child::td[@role])[5]"
     );
@@ -28,9 +29,13 @@ exports.BookingPage = class BookingPage {
     );
     this.doneButton = page.locator('//button//span[text()="Done"]');
     this.grid = page.locator('//label[text()="Grid"]');
-    this.calenderDrop=page.locator("//nav[@data-testid='datepicker-tabs']")
-    this.giveAFilter = page.locator('(//input[@aria-label and @type="checkbox"])[1]');
-    this.giveAnotherFilter = page.locator('(//input[@aria-label and @type="checkbox"])[3]');
+    this.calenderDrop = page.locator("//nav[@data-testid='datepicker-tabs']");
+    this.giveAFilter = page.locator(
+      '(//input[@aria-label and @type="checkbox"])[1]'
+    );
+    this.giveAnotherFilter = page.locator(
+      '(//input[@aria-label and @type="checkbox"])[3]'
+    );
 
     this.countOptionsAvailable = page.locator('//h1[@aria-live="assertive"]');
     this.search = page.locator("//button//span[text()='Search']");
@@ -41,13 +46,16 @@ exports.BookingPage = class BookingPage {
   }
 
   async navigate() {
-    await helper.assertAllureStep('Navigate to Booking Website', async () => {
+    await helper.assertAllureStep("Navigate to Booking Website", async () => {
       await this.page.goto(process.env.bookingBaseUrl);
+      helper.logToFile(
+        `\nBooking Application Logs: ${helper.getCheckInDates()}`
+      );
     });
   }
 
   async handlePopup() {
-    await helper.assertAllureStep('Handle Sign-In Popup', async () => {
+    await helper.assertAllureStep("Handle Sign-In Popup", async () => {
       await this.signInPopUp.isVisible();
       await this.closePopUp.isEnabled();
       await this.closePopUp.click();
@@ -55,118 +63,125 @@ exports.BookingPage = class BookingPage {
   }
 
   async verifyURLAndTitle() {
-    await helper.assertAllureStep('Verify Page URL and Title', async () => {
+    await helper.assertAllureStep("Verify Page URL and Title", async () => {
       await expect(this.page).toHaveTitle(process.env.bookingPageTitle);
       const pageTitle = await this.page.title();
       expect(pageTitle).toContain("Booking.com");
       await expect(this.page).toHaveURL(process.env.bookingBaseUrl);
       await expect(this.page.url()).toEqual(process.env.bookingBaseUrl);
-      helper.logToFile(`\nBooking Application Logs: ${helper.getCurrentDate()}`);
     });
   }
 
   async validateSearchBars() {
-    await helper.assertAllureStep('Validate Search Bars Visibility and Editability', async () => {
-      expect(this.page.getByPlaceholder("Where are you going?")).toBeVisible();
-      expect(this.page.getByPlaceholder("Where are you going?")).toBeEditable();
-      expect(this.checkInDate).toBeVisible();
-      expect(this.checkInDate).toBeEnabled();
-      expect(this.numberOfGuest).toBeVisible();
-      expect(this.numberOfGuest).toBeEnabled();
-    });
+    await helper.assertAllureStep(
+      "Validate Search Bars Visibility and Editability",
+      async () => {
+        expect(
+          this.page.getByPlaceholder("Where are you going?")
+        ).toBeVisible();
+        expect(
+          this.page.getByPlaceholder("Where are you going?")
+        ).toBeEditable();
+        expect(this.checkInDate).toBeVisible();
+        expect(this.checkInDate).toBeEnabled();
+        expect(this.numberOfGuest).toBeVisible();
+        expect(this.numberOfGuest).toBeEnabled();
+      }
+    );
   }
 
   async fillBookingRequirements() {
-    await helper.assertAllureStep('Fill Booking Requirements and Search', async () => {
-      await this.page.getByPlaceholder("Where are you going?").fill(data.destination);
-      await this.checkInDate.click();
-      let formattedCurrentDate = helper.getCurrentDate();
-      let formattedCheckOutDate = helper.getCheckoutDate();
-      await helper.updateTheDate(this.checkIn, formattedCurrentDate);
-      await helper.updateTheDate(this.checkOut, formattedCheckOutDate);
-      await this.numberOfGuest.click();
-      await this.selectTheAdultCount.click();
-      await this.doneButton.click();
-      await this.search.click();
-     
-      const calender=  await this.calenderDrop.isVisible();
-      if(calender)
-        {this.checkInDate.click();
+    await helper.assertAllureStep(
+      "Fill Booking Requirements and Search",
+      async () => {
+        await this.page
+          .getByPlaceholder("Where are you going?")
+          .fill(data.destination);
+        await this.checkInDate.click();
+        let formattedCurrentDate = helper.getCheckInDates();
+        const checkInDate = this.bookingDates(formattedCurrentDate);
+        await checkInDate.click();
+        let formattedCheckOutDate = helper.getCheckOutDates();
+        const checkOutDate = this.bookingDates(formattedCheckOutDate);
+        await checkOutDate.click();
+        await this.numberOfGuest.click();
+        await this.selectTheAdultCount.click();
+        await this.doneButton.click();
+        await this.search.click();
+        const calender = await this.calenderDrop.isVisible();
+        if (calender) {
+          this.checkInDate.click();
         }
-    });
+      }
+    );
   }
 
   async filterAndVerifyTheResults() {
     try {
-      await helper.assertAllureStep('Validate visibility of filter grid and change the view to grid format', async () => {
-        await expect(this.grid).toBeVisible();
-        await this.grid.click();
-      });
-  
-      await helper.assertAllureStep('Filter and Verify Hotels then log the count', async () => {
-        const preCount = await this.countOptionsAvailable.textContent();
-        helper.logToFile(`Total suggested pre-count of hotels from UI: ${preCount}`);
-        
-        if (parseInt(preCount) === 0) {
-          throw new Error('No hotels found before applying filters');
+      await helper.assertAllureStep(
+        "Validate visibility of filter grid and change the view to grid format",
+        async () => {
+          await expect(this.grid).toBeVisible();
+          await this.grid.click();
         }
-  
-        await this.giveAFilter.click();
-        await expect(this.giveAFilter).toBeChecked();
-        await expect(this.giveAnotherFilter).not.toBeChecked();
-        
-        await this.giveAnotherFilter.click();
-        await this.giveAFilter.click();
-        await this.page.waitForTimeout(parseInt(process.env.smallTimeOut));
-        const postCount = await this.countOptionsAvailable.textContent();
-        helper.logToFile(`\nTotal suggested post-count: ${postCount}`);
-  
-        if (parseInt(postCount) === 0) {
-          throw new Error('No hotels found after applying filters');
+      );
+
+      await helper.assertAllureStep(
+        "Filter and Verify Hotels then log the count",
+        async () => {
+          const preCount = await this.countOptionsAvailable.textContent();
+          helper.logToFile(
+            `Total suggested pre-count of hotels from UI: ${preCount}`
+          );
+
+          if (parseInt(preCount) === 0) {
+            throw new Error("No hotels found before applying filters");
+          }
+
+          await this.giveAFilter.click();
+          await expect(this.giveAFilter).toBeChecked();
+          await expect(this.giveAnotherFilter).not.toBeChecked();
+
+          await this.giveAnotherFilter.click();
+          await this.giveAFilter.click();
+          await this.page.waitForTimeout(parseInt(process.env.smallTimeOut));
+          const postCount = await this.countOptionsAvailable.textContent();
+          helper.logToFile(`\nTotal suggested post-count: ${postCount}`);
+
+          if (parseInt(postCount) === 0) {
+            throw new Error("No hotels found after applying filters");
+          }
         }
-      });
-  
+      );
     } catch (error) {
       helper.logToFile(`Error occurred: ${error.message}`);
       throw error;
     }
   }
-  
-
-  // async verifySelectedHotel() {
-  //   await helper.assertAllureStep('Verify Selected Hotel visibility', async () => {
-  //     await expect(this.selectTheHotel).toBeVisible();
-
-  //   });
-  //   await helper.assertAllureStep('Verify Selected Hotel', async () => { 
-  //     const hotelName = await this.selectTheHotel.textContent();
-  //     this.selectTheHotel.click();
-  //     await this.page.waitForTimeout(10000);
-  //     await expect(this.selectedHotel).toBeVisible();
-  //     expect(hotelName).toEqual(await this.selectedHotel.textContent());
-  //     helper.logToFile(`\nSelected hotel: ${hotelName}`);
-  //   });
-  // }
-
-
   async verifySelectedHotel() {
-    await helper.assertAllureStep('Verify Selected Hotel visibility', async () => {
-      await expect(this.selectTheHotel).toBeVisible();
-    });
-    await helper.assertAllureStep('Verify Selected Hotel', async () => { 
+    await helper.assertAllureStep(
+      "Verify Selected Hotel visibility",
+      async () => {
+        await expect(this.selectTheHotel).toBeVisible();
+      }
+    );
+    await helper.assertAllureStep("Verify Selected Hotel", async () => {
       const hotelName = await this.selectTheHotel.textContent();
       const [newTab] = await Promise.all([
-        this.page.waitForEvent('popup'), 
-        this.selectTheHotel.click()      
+        this.page.waitForEvent("popup"),
+        this.selectTheHotel.click(),
       ]);
       await this.page.waitForTimeout(parseInt(process.env.smallTimeOut));
-      const newHotelName = await newTab.locator("//h2[contains(@class,'header__title')]").textContent();
-    await helper.assertAllureStep('Verify Selected Hotel is correct', async () => {
-     
-      expect(hotelName).toEqual(newHotelName);  
-    });
+      const newHotelName = await newTab
+        .locator("//h2[contains(@class,'header__title')]")
+        .textContent();
+      await helper.assertAllureStep(
+        "Verify Selected Hotel is correct",
+        async () => {
+          expect(hotelName).toEqual(newHotelName);
+        }
+      );
       helper.logToFile(`\nSelected hotel: ${hotelName}`);
     });
   }
-  
-}
+};

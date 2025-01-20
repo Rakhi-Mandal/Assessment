@@ -108,11 +108,11 @@ class YoutubePage  {
 
     async handleVideoPopups() {
       await helper.assertAllureStep('Waiting till skip add button is visible,clickable and then click', async () => { 
-      await this.skipAd.waitForDisplayed();
       const Advertisement = await this.sponsored.isDisplayed();
       if(Advertisement){
         const skipAdVisible = await this.skipAd.isDisplayed();
         if (skipAdVisible){
+          await this.skipAd.waitForDisplayed();
           await this.skipAd.click();
          helper.logToFile('Advertisements handled successfully')
   

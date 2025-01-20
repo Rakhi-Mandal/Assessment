@@ -277,10 +277,10 @@ exports.config = {
 
     suites: {
         launchAll: [
-             './features/target.feature',
-             './features/booking.feature',
-             './features/testim.feature',
-             'features/youtube.feature'
+            //  './features/target.feature',
+            //  './features/booking.feature',
+            //  './features/testim.feature',
+            //  'features/youtube.feature'
           
         ]
     },

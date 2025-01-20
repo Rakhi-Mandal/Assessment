@@ -65,3 +65,45 @@ Testim Application Logs:20 January 2025
 Searched query:Selenium tutorial
 Number of suggested videos obtained :13
 Advertisements handled successfully
+Target Application Logs:20 January 2025
+Total suggested pre-count :Bangalore: 1,313 properties found
+Total suggested post-count:Bangalore: 1,313 properties found
+Selected hotel:Taj West End
+Hotel displayed:Taj West End
+Hotel verified successfully
+Switched to main window after completion of task
+Target Application Logs:20 January 2025
+Total suggested pre-count :Bangalore: 1,314 properties found
+Total suggested post-count:Bangalore: 1,314 properties found
+Selected hotel:Sanctum Suites Domlur Bangalore
+Hotel displayed:Sanctum Suites Domlur Bangalore
+Hotel verified successfully
+Switched to main window after completion of task
+Target Application Logs:20 January 2025
+Total suggested pre-count :Bangalore: 1,314 properties found
+Total suggested post-count:Bangalore: 260 properties found
+Selected hotel:Sanctum Suites Domlur Bangalore
+Hotel displayed:Sanctum Suites Domlur Bangalore
+Hotel verified successfully
+Switched to main window after completion of task
+Testim Application Logs:20 January 2025
+Target Application Logs:20 January 2025
+Target Application Logs:20 January 2025
+Testim Application Logs:20 January 2025
+Searched query:Selenium tutorial
+First item in result: amazfit bip 5 unity smartwatch
+Footer Link:Terms of Service
+Footer Link:Privacy Policy
+Footer Link:Cookie Policy
+Footer Link:Professional Service Terms
+Total visible  footer link options: 4
+Target Application Logs:20 January 2025
+Target Application Logs:20 January 2025
+First item in result: amazfit bip 5 unity smartwatch
+Target Application Logs:20 January 2025
+Total suggested pre-count :Bangalore: 1,300 properties found
+Total suggested post-count:Bangalore: 1,300 properties found
+Selected hotel:Sanctum Suites Domlur Bangalore
+Hotel displayed:Sanctum Suites Domlur Bangalore
+Hotel verified successfully
+Switched to main window after completion of task
