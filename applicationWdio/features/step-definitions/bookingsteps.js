@@ -1,8 +1,6 @@
 const { Given, When, Then } = require('@wdio/cucumber-framework');
-const { $, browser } = require("@wdio/globals");
-const path = require("path");
-const { expect } = require('chai');
-
+let responseData;  
+let responseStatus;
 
 
 const bookingPage = require('../pageobjects/booking.page');

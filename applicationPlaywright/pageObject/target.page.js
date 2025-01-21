@@ -20,7 +20,7 @@ exports.TargretPage = class TargretPage {
   async navigation() {
     await helper.assertAllureStep('Navigate to Target Application', async () => {
       await this.page.goto(process.env.targetBaseURL);
-      helper.logToFile(`Target Application Logs: ${helper.getCurrentDate()}`);
+      helper.logToFile(`Target Application Logs: ${helper.getCheckInDates()}`);
     });
   }
 

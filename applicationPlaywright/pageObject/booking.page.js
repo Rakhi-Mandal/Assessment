@@ -42,7 +42,6 @@ exports.BookingPage = class BookingPage {
     this.selectTheHotel = page.locator(
       "(//div[@role='listitem']//child::div//following-sibling::div//child::h3//child::div)[1]"
     );
-    // this.selectedHotel = page.locator("//h2[contains(@class,'header__title')]");
   }
 
   async navigate() {
@@ -172,9 +171,7 @@ exports.BookingPage = class BookingPage {
         this.selectTheHotel.click(),
       ]);
       await this.page.waitForTimeout(parseInt(process.env.smallTimeOut));
-      const newHotelName = await newTab
-        .locator("//h2[contains(@class,'header__title')]")
-        .textContent();
+      const newHotelName = await newTab.locator("//h2[contains(@class,'header__title')]").textContent();
       await helper.assertAllureStep(
         "Verify Selected Hotel is correct",
         async () => {

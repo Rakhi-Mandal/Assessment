@@ -1,7 +1,4 @@
 
-Booking Application Logs: 20 January 2025
-Total suggested pre-count of hotels from UI: Bangalore: 1,306 properties found
+Youtube Application Logs:21 January 2025
 
-Total suggested post-count: Bangalore: 8 properties found
-
-Selected hotel: Vistar Resort & Hotels
+We got recommendations of 21 videos.

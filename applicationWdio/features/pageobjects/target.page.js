@@ -1,6 +1,7 @@
 const { $, browser } = require("@wdio/globals");
-const data = require("../../data/targetData.json");
 const { expect, assert } = require("chai");
+const data = require("../../data/targetData.json");
+
 const helper = require("../../utils/helper");
 
 class BookingPage {
@@ -71,7 +72,6 @@ class BookingPage {
       expect(await this.searchBar.isDisplayed()).to.be.true;
     await this.searchButton.click()
     });
-
   }
   async validateTheResults(){
     await browser.pause(process.env.smallTimeOut)

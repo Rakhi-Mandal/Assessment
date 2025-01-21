@@ -1,27 +1,6 @@
 const { allure } = require('allure-playwright');
 const fs = require('fs');
 let isFileCleaned = false;
-// function getCurrentDate() {
-//   const today = new Date();
-//   const dayOfWeek = today.toLocaleString("default", { weekday: "short" });
-//   const date = today.getDate().toString();
-//   const month = today.toLocaleString("default", { month: "short" });
-//   const formattedDate = `${dayOfWeek},${month} ${date}`;
-//   return formattedDate;
-// }
-// function getCheckoutDate() {
-//   const today = new Date();
-//   const dayOfWeek = today.toLocaleString("default", { weekday: "short" });
-//   const date = today.getDate().toString();
-//   const month = today.toLocaleString("default", { month: "short" });
-//   const formattedDate = `${dayOfWeek},${month} ${date+7}`;
-//   return formattedDate;
-// }
-// async function updateTheDate(locator, formattedDate) {
-//   await locator.evaluate((element, date) => {
-//     element.textContent = date;
-//   }, formattedDate);
-// }
 
 function getCheckInDates() {
   const today = new Date();

@@ -32,7 +32,7 @@ export class YoutubePage {
   async navigation() {
     await helper.assertAllureStep("Navigate to Youtube Website", async () => {
       await this.page.goto(process.env.youtubeBaseURL);
-      helper.logToFile(`\nYoutube Application Logs:${helper.getCurrentDate()}`);
+      helper.logToFile(`\nYoutube Application Logs:${helper.getCheckInDates()}`);
     });
   }
   async checkingPageDetails() {

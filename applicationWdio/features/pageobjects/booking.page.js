@@ -73,7 +73,6 @@ class BookingPage {
   }
   async checkHomepage() {
     await helper.assertAllureStep('Verify Page URL and Title', async () => {
-
     const title = await browser.getTitle();
     const url = await browser.getUrl();
     expect(title).to.be.equal(process.env.bookingPageTitle);
@@ -82,7 +81,6 @@ class BookingPage {
   }
   async handlePopup() {
     await helper.assertAllureStep('Handle Sign-In Popup', async () => {
-
     await this.signInPopUp.waitForDisplayed(parseInt(process.env.mediumTimeOut));
     const popup =this.destination.isDisplayed()
     if(popup)
@@ -92,7 +90,6 @@ class BookingPage {
   }
   async validateSearchBars() {
     await helper.assertAllureStep('Validate Search Bars Visibility and Editability', async () => {
-
     expect(await this.destination.isDisplayed()).to.be.true;
     expect(await this.destination.isEnabled()).to.be.true;
     expect(await this.checkInDate.isDisplayed()).to.be.true;

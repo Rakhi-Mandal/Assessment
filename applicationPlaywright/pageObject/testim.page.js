@@ -2,7 +2,6 @@ const { expect } = require("@playwright/test");
 require("dotenv").config();
 const helper = require("../utils/helper");
 const data = require("../Data/testimData.json");
-const { log } = require("console");
 exports.TestimPage = class TestimPage {
   constructor(page) {
     this.page = page;
@@ -14,12 +13,7 @@ exports.TestimPage = class TestimPage {
       "//div[contains(@class,'page-header')]//child::li[contains(@class,'has-drop')]"
     );
     this.companyOption = page.locator("//a[text()='Company']");
-    // this.aboutSubOption = page.locator("//span[text()='About']");
-    // this.customersSubOption = page.locator("//span[text()='Customers']")
-    // this.careersSubOption = page.locator("//span[text()='Careers']")
-    // this.testimPartnersSubOption = page.locator("//span[text()='Testim Partners']");
-    this.subSection = (subSectionText) =>
-      page.locator(`//span[text()='${subSectionText}']`);
+    this.subSection = (subSectionText) =>page.locator(`//span[text()='${subSectionText}']`);
     this.customerName = page.locator("(//div[@class='item-name'])[1]");
     this.customerPosition = page.locator("(//div[@class='item-position'])[1]");
     this.reviewContent = page.locator("(//div[@class='item-body']//p)[1]");
@@ -31,7 +25,7 @@ exports.TestimPage = class TestimPage {
   async navigate() {
     await helper.assertAllureStep("Navigate to Testim Website", async () => {
       await this.page.goto(process.env.testimBaseUrl);
-      helper.logToFile(`\nTestim Application Logs:${helper.getCurrentDate()}`);
+      helper.logToFile(`\nTestim Application Logs:${helper.getCheckInDates()}`);
     });
   }
   async getNavOptions() {

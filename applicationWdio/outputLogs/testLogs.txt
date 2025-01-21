@@ -107,3 +107,17 @@ Selected hotel:Sanctum Suites Domlur Bangalore
 Hotel displayed:Sanctum Suites Domlur Bangalore
 Hotel verified successfully
 Switched to main window after completion of task
+Target Application Logs:20 January 2025
+Total suggested pre-count :Bangalore: 1,250 properties found
+Total suggested post-count:Bangalore: 1,250 properties found
+Target Application Logs:20 January 2025
+Total suggested pre-count :Bangalore: 1,250 properties found
+Total suggested post-count:Bangalore: 1,250 properties found
+
+Book API logs :21 January 2025
+Fetched records :[object Object]
+Respose status :200
+
+Book API logs :21 January 2025
+Fetched records :[object Object]
+Respose status :200
