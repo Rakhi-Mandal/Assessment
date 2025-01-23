@@ -68,7 +68,7 @@ class ApiPage {
   async updateCollection(userId, isbn) {
     const payload = {
       userId: userId,
-      isbn: "9781491000000",
+      isbn: data.updatedIsbn,
     };
     const endPoint = `${process.env.updateUserBookCollection}${isbn}`;
 

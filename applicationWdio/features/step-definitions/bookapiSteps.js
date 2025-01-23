@@ -1,5 +1,5 @@
 const { Given, When, Then } = require('@wdio/cucumber-framework');
-const bookApiPage = require('../pageobjects/bookApiWithBearer.page');
+const bookApiPage = require('../pageobjects/bookApi.page');
 const helper = require("../../utils/helper");
 const data = require("../../data/bookApi.json");
 const { expect, assert } = require("chai");

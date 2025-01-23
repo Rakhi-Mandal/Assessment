@@ -1,7 +1,11 @@
 const axios = require('axios');
-const username =process.env.api_username;
-const password = process.env.api_password;
-const authHeader = 'Basic ' + Buffer.from(`${username}:${password}`).toString('base64');
+
+const encodedEmail =process.env.api_username;
+const encodedPassword = process.env.api_password;
+const decodedEmail = atob(encodedEmail); 
+const decodedPassword = atob(encodedPassword); 
+
+const authHeader = 'Basic ' + Buffer.from(`${decodedEmail}:${decodedPassword}`).toString('base64');
 const axiosInstance = axios.create({
     baseURL: process.env.fakeStore, 
     headers: {
