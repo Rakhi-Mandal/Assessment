@@ -1,7 +1,6 @@
 const axios = require("axios");
 const data = require("../../data/bookApi.json");
 const helper = require("../../utils/helper");
-
 const authToken = data.authenticationToken;
 const authHeader = `Bearer ${authToken}`;
 const axiosInstance = axios.create({
@@ -21,6 +20,7 @@ class ApiPage {
     const endPoint = `${process.env.getABook}${isbn}`;
     try{
         const response = await axiosInstance.get(endPoint);
+        helper.validateSchema(response.data,data.GetABookResponseBody); 
         return response;
     }  catch (error) {
         helper.logToFile("Error fetching a book with ISBN");
@@ -34,9 +34,12 @@ class ApiPage {
       userId: userId,
     };
     try {
+      helper.validateSchema(payload,data.deleteRequestBody); 
       const response = await axiosInstance.delete(endPoint, {
         data: payload,
       });
+      helper.validateSchema(payload,data.deleteRequestBody); 
+
       return response;
     } catch (error) {
       helper.logToFile("Error deleting the book");
@@ -46,6 +49,7 @@ class ApiPage {
     const base = process.env.fakeStore;
     const endPoint = `${process.env.getBooksOfUser}${userId}`;
     const response = await axiosInstance.get(base + endPoint);
+    helper.validateSchema(response.data,data.ModifyAndFetchBookResponseBody);  
     return response;
   }
 
@@ -53,12 +57,13 @@ class ApiPage {
     const endPoint = process.env.getAllBooks;
     const payload = {
       userId: userId,
-      collectionOfIsbns: [{ isbn: isbn }],
+      collectionOfIsbns: [{ isbn: isbn }]
     };
     try {
+      helper.validateSchema(payload,data.addABookRequestBody); 
       const response = await axiosInstance.post(endPoint, payload);
+      helper.validateSchema(response.data,data.addABookResponseBody); 
       helper.logToFile("Response:", response.data);
-
       return response;
     } catch (error) {
       helper.logToFile("Error while adding the book to the collection");
@@ -73,13 +78,13 @@ class ApiPage {
     const endPoint = `${process.env.updateUserBookCollection}${isbn}`;
 
     try {
+      helper.validateSchema(payload,data.updateRequestBody);  
       const response = await axiosInstance.put(endPoint, payload);
+      helper.validateSchema(response.data,data.ModifyAndFetchBookResponseBody);  
       helper.logToFile("Response:", response.data);
       return response;
     } catch (error) {
-      payload;
       helper.logToFile("Error while updating a book to the collection");
-    //   throw error;
     }
   }
 }

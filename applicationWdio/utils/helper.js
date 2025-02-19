@@ -1,12 +1,16 @@
 const fs = require('fs');
 // const allure = require('allure-commandline');
 const allure = require('@wdio/allure-reporter'); 
-
-
+const Ajv = require("ajv");
+const addFormats = require("ajv-formats");
+let isFileCleaned = false;
 function logToFile(message) {
   const logFilePath = 'outputLogs/testLogs.txt';
-  fs.appendFileSync(logFilePath, message + '\n', 'utf8');
-  
+  if (!isFileCleaned) {
+    fs.writeFileSync(logFilePath, '', 'utf8'); 
+    isFileCleaned = true; 
+  }
+  fs.appendFileSync(logFilePath, message + '\n', 'utf8');  
 }
 
 async function getParsedPrice(element) {
@@ -47,6 +51,18 @@ async function assertAllureStep(stepName,stepTask) {
   })
 }
 
+function validateSchema(payload, schemaValidator) {
+  const ajv = new Ajv(); 
+  addFormats(ajv);
+  const validate = ajv.compile(schemaValidator); 
+  const isValid = validate(payload); 
+  if (isValid) {
+    this.logToFile(`Schema Validation done successfully${JSON.stringify(schemaValidator)}`) 
+  } else {
+    this.logToFile(`Error validating the schema : ${error.message}`)   
+  }
+}
+
 
 
 module.exports = {
@@ -56,5 +72,6 @@ module.exports = {
   calculateDiscountPrice,
   getCheckInDates,
   getCheckOutDates,
-  assertAllureStep
+  assertAllureStep,
+  validateSchema
 };

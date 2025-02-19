@@ -1,4 +1,1 @@
-
-Youtube Application Logs:21 January 2025
-
-We got recommendations of 21 videos.
+Error while adding the book to the collection : undefined

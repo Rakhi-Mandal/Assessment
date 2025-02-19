@@ -7,6 +7,7 @@
     "launchYoutube": "npx playwright test youtube.spec.js --project=chromium",
     "launchTestim": "npx playwright test testim.spec.js --project=chromium",
     "launchTarget": "npx playwright test target.spec.js --project=firefox",
+    "launchApiTesting": "npx playwright test bookApi.spec.js --project=chromium",
     "launchAll":"npm run launchYoutube && npm run launchTestim && npm run launchTarget",
     "test:allure": "playwright test --reporter=allure-playwright",
     "allure:generate": "allure generate allure-results --clean -o allure-report",

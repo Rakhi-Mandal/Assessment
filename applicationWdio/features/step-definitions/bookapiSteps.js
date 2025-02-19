@@ -62,7 +62,7 @@ else
 
 
 When(/^I make a DELETE request to the endpoint in order to delete a particular record form user collection$/,async () => {
-    response = await bookApiPage.deleteBook(data.sampleIsbn,data.userId);
+    response = await bookApiPage.deleteBook(data.updatedIsbn,data.userId);
     if(response!=undefined)
    {
     responseStatus = response.status;
@@ -93,10 +93,10 @@ When(/^I make a GET request to the endpoint in order to fetch all records relate
 });
 
 When(/^I make a Post request to the endpoint in order to add a new record in user collection$/,async () => {
-    response = await bookApiPage.addABookInUserCollection(data.userId,data.sampleIsbn);
+    response = await bookApiPage.addABookInUserCollection(data.userId,data.updatedIsbn);
     if(response!=undefined)
    {
-    responseStatus = response.status;
+     responseStatus = response.status;
    } 
 });
 
@@ -116,7 +116,7 @@ Then(/^The response status should be 201$/,async () => {
 
 
 When(/^I make a PUT request in order to update a record in user collection$/,async () => {
-    response = await bookApiPage.updateCollection(data.userId,data.sampleIsbn);
+    response = await bookApiPage.updateCollection(data.userId,data.updatedIsbn);
     if(response!=undefined)
    {
     responseStatus = response.status;
@@ -127,7 +127,7 @@ When(/^I make a PUT request in order to update a record in user collection$/,asy
 Then(/^The response status should be 201 update done$/,async () => {
     if(response!=undefined)
         {
-             expect(responseStatus).to.be.equal(ErrorCodes.SUCCESS_CREATED);
+             expect(responseStatus).to.be.equal(ErrorCodes.SUCCESS_OK);
              helper.logToFile(`Respose status :${responseStatus}`)
             }
             else{

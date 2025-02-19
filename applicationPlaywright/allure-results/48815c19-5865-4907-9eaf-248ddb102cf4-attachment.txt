@@ -1,0 +1,4 @@
+Error response: {
+  code: '1205',
+  message: 'ISBN supplied is not available in Books Collection!'
+}
